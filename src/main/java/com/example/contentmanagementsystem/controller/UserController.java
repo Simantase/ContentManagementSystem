@@ -29,6 +29,9 @@ public class UserController {
 			@RequestBody @Valid UserRequestDto userRequestDto) {
 		return userServiceImpl.register(userRequestDto);
 	}
-
+	@GetMapping("/test")
+	public String test() {
+		return "WELCOME TO BANGALORE";
+	}
 
 }
