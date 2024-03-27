@@ -34,6 +34,7 @@ public class User {
 	private LocalDateTime createdAt;//For Auditing
 	@LastModifiedDate//For Auditing
 	private LocalDateTime lastModifiedAt;//For Auditing
+	private Boolean deleted;
 
 
 }
