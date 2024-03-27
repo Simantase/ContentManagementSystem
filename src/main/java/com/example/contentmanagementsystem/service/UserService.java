@@ -7,4 +7,6 @@ import com.example.contentmanagementsystem.responsedto.UserResponseDto;
 import com.example.contentmanagementsystem.utility.ResponseStructure;
 public interface UserService {
 	ResponseEntity<ResponseStructure<UserResponseDto>> register(UserRequestDto userRequestDto);
+	ResponseEntity<ResponseStructure<UserResponseDto>> delete(int userId);
+	ResponseEntity<ResponseStructure<UserResponseDto>> findById(int userId);
 }
