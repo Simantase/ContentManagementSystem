@@ -5,8 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.example.contentmanagementsystem.exception.BlogAlreadyExistsByTitleException;
+import com.example.contentmanagementsystem.exception.BlogIsNotFoundByIdException;
+import com.example.contentmanagementsystem.exception.BlogIsNotUpdatedException;
+import com.example.contentmanagementsystem.exception.IllegalAccessRequestException;
+import com.example.contentmanagementsystem.exception.TopicNotSpecifiedException;
 import com.example.contentmanagementsystem.exception.UserAlreadyExixtsByEmailException;
 import com.example.contentmanagementsystem.exception.UserIsNotFoundException;
+import com.example.contentmanagementsystem.exception.UserNotFoundByIdException;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +33,32 @@ public class ApplicationHandler {
 	public ResponseEntity<ErrorStructure<String>> handleUserNotFoundException(UserIsNotFoundException ex){
 		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"User Is Found!!!");
 	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleUserNotFoundByIdException(UserNotFoundByIdException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"User Is Found!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogAlreadyExistsByTitleException(BlogAlreadyExistsByTitleException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Blog Is Not Found!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleTopicNotSpecifiedException(TopicNotSpecifiedException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Blog Is Not Found!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogIsNotFoundByIdException(BlogIsNotFoundByIdException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Blog Is Not Found!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogIsNotUpdatedException(BlogIsNotUpdatedException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleIllegalAccessRequestException(IllegalAccessRequestException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
+	}
+	
+	
 
 
 }

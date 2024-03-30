@@ -15,4 +15,6 @@ public class UserRequestDto {
 	private String email;
 	@Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$",message= "Invalid Password Format!!!")
 	private String password;
+	
+	
 }
