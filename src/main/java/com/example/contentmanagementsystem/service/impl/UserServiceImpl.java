@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
 
 		User user = userRepository.save(mapToUser(userRequestDto, new User()));
 		return ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value())
-				.setStatusMessage("Data Is Registered Successfully").setStatusData(mapToUserResponse(user)));
+				.setStatusMessage("Data Is Registered Successfully")
+				.setStatusData(mapToUserResponse(user)));
 	}
-
 	private User mapToUser(UserRequestDto userRequestDto, User user) {
 		user.setUsername(userRequestDto.getUsername());
 		user.setEmail(userRequestDto.getEmail());
