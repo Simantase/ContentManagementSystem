@@ -78,8 +78,10 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public ResponseEntity<ResponseStructure<BlogResponse>> findBlogById(int blogId) {
 		return blogRepository.findById(blogId)
-				.map(blog -> ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value())
-						.setStatusMessage("Blog Data Is Fetched Successfully").setStatusData(mapToResponse(blog))))
+				.map(blog -> ResponseEntity.ok(responseStructure
+						.setStatusCode(HttpStatus.OK.value())
+						.setStatusMessage("Blog Data Is Fetched Successfully")
+						.setStatusData(mapToResponse(blog))))
 				.orElseThrow(() -> new BlogIsNotFoundByIdException("Blog Is Not Found!!!"));
 	}
 
@@ -88,12 +90,12 @@ public class BlogServiceImpl implements BlogService {
 		return blogRepository.findById(blogId).map(blog -> {
 			if (blogRepository.existsByTitle(blogRequest.getTitle()))
 				throw new BlogAlreadyExistsByTitleException("Blog Tile Is Exist!!");
-
 			if (blog.getAbout().length() < 1)
 				throw new AboutLengthIsNotValidException("Blog About Length Is Not Valid!!");
 
 			return ResponseEntity.ok(
-					responseStructure.setStatusCode(HttpStatus.OK.value()).setStatusMessage("Blog Data Is Updated!!!")
+					responseStructure.setStatusCode(HttpStatus.OK.value())
+					.setStatusMessage("Blog Data Is Updated!!!")
 					.setStatusData(mapToResponse(blogRepository.save(mapToBlog(blogRequest, blog)))));
 		}).orElseThrow(() -> new BlogIsNotUpdatedException("Blog Data Is Not Updated!!"));
 	}

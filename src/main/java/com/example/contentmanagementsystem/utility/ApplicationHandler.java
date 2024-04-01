@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.example.contentmanagementsystem.exception.BlogAlreadyExistsByTitleException;
 import com.example.contentmanagementsystem.exception.BlogIsNotFoundByIdException;
 import com.example.contentmanagementsystem.exception.BlogIsNotUpdatedException;
+import com.example.contentmanagementsystem.exception.BlogPostNotFoundException;
 import com.example.contentmanagementsystem.exception.IllegalAccessRequestException;
 import com.example.contentmanagementsystem.exception.TopicNotSpecifiedException;
 import com.example.contentmanagementsystem.exception.UserAlreadyExixtsByEmailException;
@@ -55,6 +56,10 @@ public class ApplicationHandler {
 	}
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> handleIllegalAccessRequestException(IllegalAccessRequestException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogPostNotFoundException(BlogPostNotFoundException ex){
 		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
 	}
 	
