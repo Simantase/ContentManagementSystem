@@ -18,7 +18,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
-
+@EntityListeners(value = {AuditingEntityListener.class})
 @Entity
 @Getter
 @Setter
@@ -26,7 +26,12 @@ public class ContributionalPanel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int panelId;
-	
+	@CreatedDate
+	@Column(updatable = false)
+	private LocalDateTime createdAt;
+	@LastModifiedDate
+	private LocalDateTime lastModifiedAt;
+
 	@ManyToMany
 	private List<User> contributors=new ArrayList<>();
 }

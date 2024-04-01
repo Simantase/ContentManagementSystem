@@ -36,7 +36,7 @@ public class ContributionPanelImpl implements ContributionPanelService {
 					throw new IllegalAccessRequestException("Failed To Add Contributor!!!");
 
 				return userRepository.findById(userId).map(contributor -> {
-					if(!panel.getContributors().contains(contributor) && panel.getContributors().contains(owner))
+			//	if(!panel.getContributors().contains(contributor) && panel.getContributors().contains(owner))
 					panel.getContributors().add(contributor);
 					ContributionalPanel panel2 = contributionPanelRepository.save(panel);
 
