@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -31,6 +33,11 @@ public class ContributionalPanel {
 	private LocalDateTime createdAt;
 	@LastModifiedDate
 	private LocalDateTime lastModifiedAt;
+	@CreatedBy
+	@Column(updatable = false)
+	private String createdBy;
+	@LastModifiedBy
+	private String lastModifiedBy;
 
 	@ManyToMany
 	private List<User> contributors=new ArrayList<>();

@@ -10,10 +10,12 @@ import com.example.contentmanagementsystem.exception.BlogIsNotFoundByIdException
 import com.example.contentmanagementsystem.exception.BlogIsNotUpdatedException;
 import com.example.contentmanagementsystem.exception.BlogPostNotFoundException;
 import com.example.contentmanagementsystem.exception.IllegalAccessRequestException;
+import com.example.contentmanagementsystem.exception.PostIsNotFoundByIdException;
 import com.example.contentmanagementsystem.exception.TopicNotSpecifiedException;
 import com.example.contentmanagementsystem.exception.UserAlreadyExixtsByEmailException;
 import com.example.contentmanagementsystem.exception.UserIsNotFoundException;
 import com.example.contentmanagementsystem.exception.UserNotFoundByIdException;
+import com.example.contentmanagementsystem.exception.ValidateDateException;
 
 import lombok.AllArgsConstructor;
 
@@ -62,8 +64,16 @@ public class ApplicationHandler {
 	public ResponseEntity<ErrorStructure<String>> handleBlogPostNotFoundException(BlogPostNotFoundException ex){
 		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
 	}
-	
-	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handlePostIsNotFoundByIdException(PostIsNotFoundByIdException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleValidateDateException(ValidateDateException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Blog Input!!!");
+	}
+
+
 
 
 }

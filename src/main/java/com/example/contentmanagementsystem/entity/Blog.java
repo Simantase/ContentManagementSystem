@@ -2,7 +2,9 @@ package com.example.contentmanagementsystem.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
@@ -36,7 +38,12 @@ public class Blog {
 	private LocalDateTime createdAt;//For Auditing
 	@LastModifiedDate//For Auditing
 	private LocalDateTime lastModifiedAt;//For Auditing
-
+	@CreatedBy
+	@Column(updatable = false)
+	private String createdBy;
+	@LastModifiedBy
+	private String lastModifiedBy;
+	
 	@ManyToOne
 	private User users;
 

@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	private ResponseStructure<UserResponseDto> responseStructure;
 	private PasswordEncoder passwordEncoder;
-
 	@Override
 	public ResponseEntity<ResponseStructure<UserResponseDto>> register(UserRequestDto userRequestDto) {
 		if (userRepository.existsByEmail(userRequestDto.getEmail()))
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
 				.createdAt(user.getCreatedAt()).lastModifiedAt(user.getLastModifiedAt()).build();
 
 	}
-
+	@Override
 	public ResponseEntity<ResponseStructure<UserResponseDto>> delete(int userId) {
 		return userRepository.findById(userId).map(user -> {
 			user.setDeleted(true);
@@ -57,14 +56,12 @@ public class UserServiceImpl implements UserService {
 					.setStatusData(mapToUserResponse(userRepository.save(user))));
 		}).orElseThrow(()-> new UserIsNotFoundException("User Is Not Deleted!!"));
 	}
-
 	@Override
 	public ResponseEntity<ResponseStructure<UserResponseDto>> findById(int userId) {
 		return userRepository.findById(userId).map(user->
-			ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value())
-					.setStatusMessage("User Is Fetched Successfully")
-					.setStatusData(mapToUserResponse(user))))
+		ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value())
+				.setStatusMessage("User Is Fetched Successfully")
+				.setStatusData(mapToUserResponse(user))))
 				.orElseThrow(()->new UserIsNotFoundException("User Is Not Fetched"));
 	}
-
 }

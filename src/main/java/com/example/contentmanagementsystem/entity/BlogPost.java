@@ -17,6 +17,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 @Entity
@@ -32,7 +33,7 @@ public class BlogPost {
 	@Column(length = 4000)
 	private String summary;
 	private PostType postType;
-	
+
 	@CreatedDate
 	@Column(updatable = false)
 	private LocalDateTime createdAt;
@@ -46,4 +47,7 @@ public class BlogPost {
 
 	@ManyToOne
 	private Blog blog;
+	@OneToOne
+	private Publish publish;
+
 }

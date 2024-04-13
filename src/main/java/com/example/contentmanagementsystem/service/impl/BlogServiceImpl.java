@@ -31,7 +31,6 @@ public class BlogServiceImpl implements BlogService {
 	private BlogRepository blogRepository;
 	private ContributionPanelRepository contributionPanelRepository;
 	private ResponseStructure<BlogResponse> responseStructure;
-
 	@Override
 	public ResponseEntity<ResponseStructure<BlogResponse>> createBlog(int userId, BlogRequest blogRequest) {
 		return userRepository.findById(userId).map(user -> {
@@ -46,15 +45,21 @@ public class BlogServiceImpl implements BlogService {
 			//blog.setUsers(user);// ***
 
 			ContributionalPanel contributionalPanel=contributionPanelRepository.save(new ContributionalPanel());
+			
+			
+			
+			
+			
 			blog.setContributionalPanel(contributionalPanel);
 			blog.setUsers(user);
-			blog=blogRepository.save(blog);
+			//blog=blogRepository.save(blog);
 
 			blogRepository.save(blog);
 			userRepository.save(user);
 			return blog;
 		}).map(blog -> ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value())
-				.setStatusMessage("Blog added sucessfully to thr user").setStatusData(mapToResponse(blog))))
+				.setStatusMessage("Blog added sucessfully to thr user")
+				.setStatusData(mapToResponse(blog))))
 				.orElseThrow(() -> new UserNotFoundByIdException("Invalid userID"));
 	}
 
@@ -69,7 +74,6 @@ public class BlogServiceImpl implements BlogService {
 		blog.setTopics(blogRequest.getTopics());
 		return blog;
 	}
-
 	@Override
 	public ResponseEntity<Boolean> fetchByTitle(String title) {
 		return ResponseEntity.ok(blogRepository.existsByTitle(title));
@@ -84,7 +88,6 @@ public class BlogServiceImpl implements BlogService {
 						.setStatusData(mapToResponse(blog))))
 				.orElseThrow(() -> new BlogIsNotFoundByIdException("Blog Is Not Found!!!"));
 	}
-
 	@Override
 	public ResponseEntity<ResponseStructure<BlogResponse>> updateblogData(int blogId, BlogRequest blogRequest) {
 		return blogRepository.findById(blogId).map(blog -> {
@@ -99,5 +102,6 @@ public class BlogServiceImpl implements BlogService {
 					.setStatusData(mapToResponse(blogRepository.save(mapToBlog(blogRequest, blog)))));
 		}).orElseThrow(() -> new BlogIsNotUpdatedException("Blog Data Is Not Updated!!"));
 	}
+
 
 }
