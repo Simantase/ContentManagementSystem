@@ -1,5 +1,4 @@
 package com.example.contentmanagementsystem.utility;
-
 import java.util.Optional;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

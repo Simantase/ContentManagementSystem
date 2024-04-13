@@ -28,7 +28,6 @@ public class ContributionPanelImpl implements ContributionPanelService {
 	@Override
 	public ResponseEntity<ResponseStructure<ContributionalPanel>> addContributor(int userId, int panelId) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-
 		return userRepository.findByEmail(email).map(owner -> {
 			return contributionPanelRepository.findById(panelId).map(panel -> {
 
@@ -36,10 +35,12 @@ public class ContributionPanelImpl implements ContributionPanelService {
 					throw new IllegalAccessRequestException("Failed To Add Contributor!!!");
 
 				return userRepository.findById(userId).map(contributor -> {
-			//	if(!panel.getContributors().contains(contributor) && panel.getContributors().contains(owner))
-					panel.getContributors().add(contributor);
+					if(!panel.getContributors().contains(contributor) && !(owner.equals(contributor)))
+						panel.getContributors().add(contributor);
+					
 					ContributionalPanel panel2 = contributionPanelRepository.save(panel);
 
+					
 					return ResponseEntity.ok(responseStructure.setStatusCode(HttpStatus.OK.value())
 							.setStatusMessage("Contributor Is Added In Contributional Panel").setStatusData(panel2));
 				}).orElseThrow(() -> new UserNotFoundByIdException("User Is Not Found!!!"));
